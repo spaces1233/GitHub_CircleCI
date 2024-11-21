@@ -11,8 +11,7 @@ jobs:
           command: pip install pytest  # Install pytest dependency
       - run:
           name: Run tests
-          command: pytest --junitxml=test-results/test-report.xml  # Run the tests and save results to test-results/test-report.xml
-
+          command: pytest test_main.py --junitxml=test-results/test-report.xml  # Run the tests and save results to test-results/test-report.xml
       - store_test_results:
           path: test-results  # This will store the test results
 
