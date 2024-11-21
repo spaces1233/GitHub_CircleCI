@@ -12,27 +12,13 @@ jobs:
             pip install pytest  # Install pytest dependency
             pip install pytest-html  # Install pytest-html for generating HTML reports
       - run:
-          name: Run tests
-          command: pytest test_main.py --junitxml=test-results/test-report.xml  # Run the tests and save results to test-results/test-report.xml
-      - store_test_results:
-          path: test-results  # This will store the test results
-      - run:
-          name: Generate HTML report
+          name: Run tests and generate reports
           command: |
-            pytest test_main.py --html=report.html  # Generate an HTML report for code coverage
+            pytest test_main.py --junitxml=test-results/test-report.xml --html=report.html  # Generate both reports in one command
+      - store_test_results:
+          path: test-results  # Store the test results
       - store_artifacts:
           path: report.html  # Store the generated HTML report
-      - run:
-          name: Create additional artifacts
-          command: |
-            echo "my artifact file" > /tmp/art-1;  # Create dummy artifacts
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
-      - store_artifacts:
-          path: /tmp/art-1  # Store the dummy artifact
-          destination: artifact-file
-      - store_artifacts:
-          path: /tmp/artifacts  # Store the directory containing additional artifacts
 
 workflows:
   version: 2
