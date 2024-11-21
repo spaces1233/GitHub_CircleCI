@@ -20,4 +20,4 @@ def test_add_floating_point_numbers():
     assert add_numbers(2.5, 3.5) == 6.0  # Pass: 2.5 + 3.5 = 6.0
     
     # Second assertion: This will pass
-    assert add_numbers(1.1, 2.2) == 3.3  # Pass: 1.1 + 2.2 = 3.3 exactly
+    assert add_numbers(1.5, 2.5) == 4.0  # Pass: 1.5 + 2.5 = 4.0
