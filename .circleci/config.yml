@@ -12,6 +12,8 @@ jobs:
       - run:
           name: Run tests
           command: pytest  # Run the tests using pytest
+      - store_test_results:
+          path: test-results  # This step stores the test results from the 'test-results' directory
 
 workflows:
   version: 2
