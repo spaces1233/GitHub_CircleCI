@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.8  # Use CircleCI's Python 3.8 image for your job
     steps:
       - checkout  # This step checks out the repository
       - run:
@@ -14,6 +14,23 @@ jobs:
           command: pytest test_main.py --junitxml=test-results/test-report.xml  # Run the tests and save results to test-results/test-report.xml
       - store_test_results:
           path: test-results  # This will store the test results
+      - run:
+          name: Generate HTML report
+          command: |
+            pytest --html=report.html  # Generate an HTML report for code coverage
+      - store_artifacts:
+          path: report.html  # Store the generated HTML report
+      - run:
+          name: Create additional artifacts
+          command: |
+            echo "my artifact file" > /tmp/art-1;  # Create dummy artifacts
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+      - store_artifacts:
+          path: /tmp/art-1  # Store the dummy artifact
+          destination: artifact-file
+      - store_artifacts:
+          path: /tmp/artifacts  # Store the directory containing additional artifacts
 
 workflows:
   version: 2
