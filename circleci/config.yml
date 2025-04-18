@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout  # This step checks out the repository
+      - run:
+          name: Install dependencies
+          command: |
+            pip install pytest  # Install pytest dependency
+            pip install pytest-html  # Install pytest-html for generating HTML reports
+      - run:
+          name: Run tests and generate reports
+          command: |
+            pytest test_main.py --junitxml=test-results/test-report.xml --html=report.html  # Generate both reports in one command
+      - store_test_results:
+          path: test-results  # Store the test results
+      - store_artifacts:
+          path: report.html  # Store the generated HTML report
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build  # This defines the job to run in the workflow
